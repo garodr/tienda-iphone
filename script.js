@@ -106,7 +106,7 @@ async function cargarUsados() {
 					</div>
 					<div class="usado-precio">
 						<span class="usado-precio-valor">${producto.precio}</span>
-						${!estaVendido ? `<a class="consult-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20el%20${encodeURIComponent(producto.nombre + " " + producto.almacenamiento + " (" + producto.estado + ")")}%20en%20iTel." target="_blank" rel="noopener noreferrer">Consultar <span aria-hidden="true">↗</span></a>` : '<span class="usado-vendido-badge">Vendido</span>'}
+						${!estaVendido ? `<a class="consult-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20el%20${encodeURIComponent(producto.nombre + " " + producto.almacenamiento + " (" + producto.estado + ")")}%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Consultar <span aria-hidden="true">↗</span></a>` : '<span class="usado-vendido-badge">Vendido</span>'}
 					</div>
 				</div>
 			`;
