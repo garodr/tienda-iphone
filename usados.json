@@ -1,0 +1,38 @@
+{
+	"titulo": "Usados seleccionados",
+	"descripcion": "iPhone revisados y garantizados por nuestro equipo.",
+	"productos": [
+		{
+			"nombre": "iPhone 15 Pro",
+			"almacenamiento": "256 GB",
+			"estado": "Excelente",
+			"precio": "$1,199",
+			"descripcion": "Batería al 92%, sin raspones, con estuche y cargador original.",
+			"colores": ["#4a4a4a", "#f5f5f0"]
+		},
+		{
+			"nombre": "iPhone 14",
+			"almacenamiento": "128 GB",
+			"estado": "Muy bueno",
+			"precio": "$749",
+			"descripcion": "Batería al 88%, detalles mínimos de uso, caja incluida.",
+			"colores": ["#c6bbd7", "#252525"]
+		},
+		{
+			"nombre": "iPhone 13 mini",
+			"almacenamiento": "128 GB",
+			"estado": "Bueno",
+			"precio": "$549",
+			"descripcion": "Batería al 84%, ligera marca en el marco, funciona perfecto.",
+			"colores": ["#b7cbdc", "#e5c9c6"]
+		},
+		{
+			"nombre": "iPhone 12 Pro",
+			"almacenamiento": "256 GB",
+			"estado": "Muy bueno",
+			"precio": "$699",
+			"descripcion": "Batería al 86%, pantalla impecable, con accesorios.",
+			"colores": ["#d6e2eb", "#c9c9c4"]
+		}
+	]
+}

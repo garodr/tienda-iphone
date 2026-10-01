@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>iTel · Administración de Usados</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f7f8f5;
+			--ink: #18201e;
+			--muted: #717a76;
+			--line: #dfe4df;
+			--blue: #1459d9;
+			--blue-deep: #103e99;
+			--lime: #d7f16b;
+			--coral: #ff795b;
+			--white: #fff;
+			--font-body: "DM Sans", sans-serif;
+			--font-display: "Manrope", sans-serif;
+		}
+
+		*, *::before, *::after { box-sizing: border-box; }
+		body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+		h1, h2, h3, p { margin-top: 0; }
+		a { color: inherit; text-decoration: none; }
+		button { color: inherit; font: inherit; cursor: pointer; }
+		input, select, textarea { font: inherit; color: inherit; }
+
+		.shell { width: min(900px, calc(100% - 40px)); margin-inline: auto; }
+
+		/* ── Login ── */
+		.login-wrap { display: grid; min-height: 100vh; place-items: center; padding: 20px; }
+		.login-card { width: min(380px, 100%); padding: 36px 32px; border: 1px solid var(--line); border-radius: 14px; background: white; box-shadow: 0 10px 40px rgb(24 32 30 / 6%); }
+		.login-card h1 { margin-bottom: 6px; font: 800 24px var(--font-display); }
+		.login-card p { margin-bottom: 24px; color: var(--muted); font-size: 13px; }
+		.login-card label { display: block; margin-bottom: 14px; font-size: 12px; font-weight: 600; }
+		.login-card input { width: 100%; margin-top: 5px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 8px; outline: none; transition: border-color .2s; }
+		.login-card input:focus { border-color: var(--blue); }
+		.login-error { display: none; margin-bottom: 14px; padding: 10px 12px; border-radius: 8px; background: #ffe5e0; color: #c0392b; font-size: 12px; font-weight: 600; }
+		.login-error.is-visible { display: block; }
+
+		/* ── Admin layout ── */
+		.admin-header { position: sticky; top: 0; z-index: 20; background: rgb(247 248 245 / 92%); backdrop-filter: blur(18px); border-bottom: 1px solid rgb(24 32 30 / 8%); }
+		.admin-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+		.admin-brand { display: inline-flex; align-items: center; gap: 9px; font: 800 20px var(--font-display); }
+		.admin-brand-mark { display: grid; width: 28px; aspect-ratio: 1; place-items: center; border-radius: 8px; color: white; background: var(--blue); font-size: 15px; }
+		.admin-actions { display: flex; align-items: center; gap: 10px; }
+
+		.button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; border: 0; border-radius: 7px; background: var(--blue); color: var(--white); font-size: 13px; font-weight: 700; transition: background .2s ease, transform .2s ease; }
+		.button:hover { background: var(--blue-deep); transform: translateY(-1px); }
+		.button-outline { min-height: 38px; border: 1px solid var(--line); background: transparent; color: var(--ink); }
+		.button-outline:hover { border-color: var(--ink); background: var(--ink); color: white; }
+		.button-danger { background: var(--coral); }
+		.button-danger:hover { background: #e5634a; }
+		.button-sm { min-height: 32px; padding: 0 12px; font-size: 11px; }
+
+		.admin-main { padding: 36px 0 60px; }
+		.admin-title-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+		.admin-title-row h1 { font: 800 28px var(--font-display); }
+		.admin-title-row p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+		/* ── Product list ── */
+		.product-list { display: flex; flex-direction: column; gap: 12px; }
+		.product-row { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; background: white; transition: box-shadow .2s; }
+		.product-row:hover { box-shadow: 0 4px 16px rgb(24 32 30 / 5%); }
+		.product-row-info { flex: 1; min-width: 0; }
+		.product-row-info strong { display: block; font: 700 15px var(--font-display); }
+		.product-row-info span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+		.product-row-price { font: 800 18px var(--font-display); color: var(--blue); }
+		.product-row-actions { display: flex; gap: 8px; }
+		.empty-state { padding: 60px 20px; text-align: center; color: var(--muted); }
+		.empty-state strong { display: block; margin-bottom: 6px; font: 700 16px var(--font-display); color: var(--ink); }
+
+		/* ── Modal ── */
+		.modal-overlay { position: fixed; inset: 0; z-index: 50; display: none; place-items: center; padding: 20px; background: rgb(24 32 30 / 50%); backdrop-filter: blur(4px); }
+		.modal-overlay.is-open { display: grid; }
+		.modal { width: min(520px, 100%); max-height: 90vh; overflow-y: auto; padding: 28px; border-radius: 14px; background: white; box-shadow: 0 20px 60px rgb(24 32 30 / 20%); }
+		.modal h2 { margin-bottom: 20px; font: 800 22px var(--font-display); }
+		.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+		.form-field { display: flex; flex-direction: column; gap: 5px; }
+		.form-field.full { grid-column: 1 / -1; }
+		.form-field label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+		.form-field input, .form-field select, .form-field textarea { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; outline: none; transition: border-color .2s; }
+		.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--blue); }
+		.form-field textarea { resize: vertical; min-height: 70px; }
+		.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+
+		/* ── Toast ── */
+		.toast { position: fixed; bottom: 24px; left: 50%; z-index: 100; transform: translateX(-50%) translateY(20px); padding: 12px 20px; border-radius: 10px; background: var(--ink); color: white; font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; }
+		.toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+		@media (max-width: 620px) {
+			.form-grid { grid-template-columns: 1fr; }
+			.product-row { flex-wrap: wrap; }
+			.product-row-actions { width: 100%; justify-content: flex-end; }
+		}
+	</style>
+</head>
+<body>
+
+	<!-- ══════════ LOGIN ══════════ -->
+	<div class="login-wrap" id="login-view">
+		<div class="login-card">
+			<h1>iTel Admin</h1>
+			<p>Ingresá tu contraseña para administrar los equipos usados.</p>
+			<div class="login-error" id="login-error">Contraseña incorrecta.</div>
+			<form id="login-form">
+				<label for="password">Contraseña
+					<input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+				</label>
+				<button class="button" type="submit" style="width:100%">Entrar</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- ══════════ ADMIN ══════════ -->
+	<div id="admin-view" hidden>
+		<header class="admin-header">
+			<div class="shell admin-nav">
+				<span class="admin-brand"><span class="admin-brand-mark">i</span> iTel Admin</span>
+				<div class="admin-actions">
+					<a class="button button-outline button-sm" href="index.html" target="_blank">Ver tienda</a>
+					<button class="button button-outline button-sm" id="btn-export">Descargar JSON</button>
+					<button class="button button-outline button-sm" id="btn-import">Importar JSON</button>
+					<button class="button button-sm" id="btn-add">+ Agregar equipo</button>
+					<button class="button button-outline button-sm" id="btn-logout">Salir</button>
+				</div>
+			</div>
+		</header>
+
+		<main class="admin-main">
+			<div class="shell">
+				<div class="admin-title-row">
+					<div>
+						<h1>Usados seleccionados</h1>
+						<p id="product-count">Cargando…</p>
+					</div>
+				</div>
+				<div class="product-list" id="product-list"></div>
+			</div>
+		</main>
+	</div>
+
+	<!-- ══════════ MODAL ══════════ -->
+	<div class="modal-overlay" id="modal-overlay">
+		<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+			<h2 id="modal-title">Agregar equipo</h2>
+			<form id="product-form">
+				<div class="form-grid">
+					<div class="form-field">
+						<label for="f-nombre">Nombre</label>
+						<input type="text" id="f-nombre" placeholder="iPhone 15 Pro" required>
+					</div>
+					<div class="form-field">
+						<label for="f-almacenamiento">Almacenamiento</label>
+						<input type="text" id="f-almacenamiento" placeholder="256 GB" required>
+					</div>
+					<div class="form-field">
+						<label for="f-estado">Estado</label>
+						<select id="f-estado">
+							<option>Excelente</option>
+							<option>Muy bueno</option>
+							<option>Bueno</option>
+						</select>
+					</div>
+					<div class="form-field">
+						<label for="f-precio">Precio</label>
+						<input type="text" id="f-precio" placeholder="$1,199" required>
+					</div>
+					<div class="form-field full">
+						<label for="f-descripcion">Descripción</label>
+						<textarea id="f-descripcion" placeholder="Batería al 92%, sin raspones…"></textarea>
+					</div>
+					<div class="form-field full">
+						<label for="f-colores">Colores (hex separados por coma)</label>
+						<input type="text" id="f-colores" placeholder="#4a4a4a, #f5f5f0">
+					</div>
+				</div>
+				<div class="modal-actions">
+					<button type="button" class="button button-outline" id="btn-cancel">Cancelar</button>
+					<button type="submit" class="button" id="btn-save">Guardar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- ══════════ TOAST ══════════ -->
+	<div class="toast" id="toast"></div>
+
+	<script>
+		// ── Configuración ──
+		const ADMIN_PASSWORD = "itel2026"; // ← Cambiá esta contraseña
+		const STORAGE_KEY = "itel_usados";
+
+		// ── Estado ──
+		let productos = [];
+		let editingIndex = -1;
+
+		// ── Elementos ──
+		const loginView = document.getElementById("login-view");
+		const adminView = document.getElementById("admin-view");
+		const loginForm = document.getElementById("login-form");
+		const loginError = document.getElementById("login-error");
+		const productList = document.getElementById("product-list");
+		const productCount = document.getElementById("product-count");
+		const modalOverlay = document.getElementById("modal-overlay");
+		const modalTitle = document.getElementById("modal-title");
+		const productForm = document.getElementById("product-form");
+		const toast = document.getElementById("toast");
+
+		// ── Inicialización ──
+		function init() {
+			// Verificar sesión
+			if (sessionStorage.getItem("itel_admin") === "true") {
+				showAdmin();
+			}
+
+			// Cargar productos
+			cargarProductos();
+		}
+
+		// ── Login ──
+		loginForm.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const password = document.getElementById("password").value;
+			if (password === ADMIN_PASSWORD) {
+				sessionStorage.setItem("itel_admin", "true");
+				loginError.classList.remove("is-visible");
+				showAdmin();
+			} else {
+				loginError.classList.add("is-visible");
+			}
+		});
+
+		function showAdmin() {
+			loginView.hidden = true;
+			adminView.hidden = false;
+			renderProductos();
+		}
+
+		function logout() {
+			sessionStorage.removeItem("itel_admin");
+			adminView.hidden = true;
+			loginView.hidden = false;
+			document.getElementById("password").value = "";
+		}
+
+		document.getElementById("btn-logout").addEventListener("click", logout);
+
+		// ── Cargar productos ──
+		function cargarProductos() {
+			const guardados = localStorage.getItem(STORAGE_KEY);
+			if (guardados) {
+				try {
+					productos = JSON.parse(guardados);
+				} catch {
+					productos = [];
+				}
+			} else {
+				// Cargar del JSON inicial
+				fetch("usados.json")
+					.then((r) => r.json())
+					.then((data) => {
+						productos = data.productos || [];
+						guardarProductos();
+						renderProductos();
+					})
+					.catch(() => {
+						productos = [];
+						renderProductos();
+					});
+			}
+			renderProductos();
+		}
+
+		function guardarProductos() {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
+		}
+
+		// ── Renderizar lista ──
+		function renderProductos() {
+			productCount.textContent = `${productos.length} equip${productos.length === 1 ? "o" : "os"} en el listado`;
+
+			if (productos.length === 0) {
+				productList.innerHTML = `
+					<div class="empty-state">
+						<strong>No hay equipos cargados</strong>
+						Agregá el primer iPhone usado para empezar.
+					</div>
+				`;
+				return;
+			}
+
+			productList.innerHTML = productos.map((p, i) => `
+				<div class="product-row">
+					<div class="product-row-info">
+						<strong>${p.nombre}</strong>
+						<span>${p.almacenamiento} · ${p.estado}</span>
+					</div>
+					<span class="product-row-price">${p.precio}</span>
+					<div class="product-row-actions">
+						<button class="button button-outline button-sm" onclick="editarProducto(${i})">Editar</button>
+						<button class="button button-danger button-sm" onclick="eliminarProducto(${i})">Eliminar</button>
+					</div>
+				</div>
+			`).join("");
+		}
+
+		// ── Agregar / Editar ──
+		document.getElementById("btn-add").addEventListener("click", () => {
+			editingIndex = -1;
+			modalTitle.textContent = "Agregar equipo";
+			productForm.reset();
+			modalOverlay.classList.add("is-open");
+		});
+
+		window.editarProducto = (i) => {
+			editingIndex = i;
+			const p = productos[i];
+			modalTitle.textContent = "Editar equipo";
+			document.getElementById("f-nombre").value = p.nombre;
+			document.getElementById("f-almacenamiento").value = p.almacenamiento;
+			document.getElementById("f-estado").value = p.estado;
+			document.getElementById("f-precio").value = p.precio;
+			document.getElementById("f-descripcion").value = p.descripcion || "";
+			document.getElementById("f-colores").value = (p.colores || []).join(", ");
+			modalOverlay.classList.add("is-open");
+		};
+
+		document.getElementById("btn-cancel").addEventListener("click", () => {
+			modalOverlay.classList.remove("is-open");
+		});
+
+		modalOverlay.addEventListener("click", (e) => {
+			if (e.target === modalOverlay) modalOverlay.classList.remove("is-open");
+		});
+
+		productForm.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const nombre = document.getElementById("f-nombre").value.trim();
+			const almacenamiento = document.getElementById("f-almacenamiento").value.trim();
+			const estado = document.getElementById("f-estado").value;
+			const precio = document.getElementById("f-precio").value.trim();
+			const descripcion = document.getElementById("f-descripcion").value.trim();
+			const coloresRaw = document.getElementById("f-colores").value.trim();
+			const colores = coloresRaw ? coloresRaw.split(",").map((c) => c.trim()).filter(Boolean) : [];
+
+			const producto = { nombre, almacenamiento, estado, precio, descripcion, colores };
+
+			if (editingIndex >= 0) {
+				productos[editingIndex] = producto;
+				mostrarToast("Equipo actualizado");
+			} else {
+				productos.push(producto);
+				mostrarToast("Equipo agregado");
+			}
+
+			guardarProductos();
+			renderProductos();
+			modalOverlay.classList.remove("is-open");
+		});
+
+		// ── Eliminar ──
+		window.eliminarProducto = (i) => {
+			if (confirm(`¿Eliminar ${productos[i].nombre}?`)) {
+				productos.splice(i, 1);
+				guardarProductos();
+				renderProductos();
+				mostrarToast("Equipo eliminado");
+			}
+		};
+
+		// ── Exportar JSON ──
+		document.getElementById("btn-export").addEventListener("click", () => {
+			const data = {
+				titulo: "Usados seleccionados",
+				descripcion: "iPhone revisados y garantizados por nuestro equipo.",
+				productos: productos,
+			};
+			const blob = new Blob([JSON.stringify(data, null, "\t")], { type: "application/json" });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = "usados.json";
+			a.click();
+			URL.revokeObjectURL(url);
+			mostrarToast("JSON descargado — subilo a GitHub para actualizar la tienda");
+		});
+
+		// ── Importar JSON ──
+		document.getElementById("btn-import").addEventListener("click", () => {
+			const input = document.createElement("input");
+			input.type = "file";
+			input.accept = ".json";
+			input.onchange = (e) => {
+				const file = e.target.files[0];
+				if (!file) return;
+				const reader = new FileReader();
+				reader.onload = (ev) => {
+					try {
+						const data = JSON.parse(ev.target.result);
+						productos = data.productos || [];
+						guardarProductos();
+						renderProductos();
+						mostrarToast("JSON importado correctamente");
+					} catch {
+						mostrarToast("Error: el archivo no es un JSON válido");
+					}
+				};
+				reader.readAsText(file);
+			};
+			input.click();
+		});
+
+		// ── Toast ──
+		function mostrarToast(msg) {
+			toast.textContent = msg;
+			toast.classList.add("is-visible");
+			setTimeout(() => toast.classList.remove("is-visible"), 3000);
+		}
+
+		// ── Iniciar ──
+		init();
+	</script>
+</body>
+</html>
