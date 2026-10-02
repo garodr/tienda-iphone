@@ -67,6 +67,76 @@ function parseCSV(texto) {
 }
 
 // ── Cargar y renderizar productos usados desde Google Sheets ──
+let usadosData = [];
+let usadosFiltro = "todos";
+
+function renderUsados() {
+	const contenedor = document.getElementById("usados-list");
+	if (!contenedor) return;
+
+	const filtrados = usadosFiltro === "todos"
+		? usadosData
+		: usadosData.filter((p) => p.nombre === usadosFiltro);
+
+	if (filtrados.length === 0) {
+		contenedor.innerHTML = '<p class="usados-empty">No hay equipos con ese modelo.</p>';
+		return;
+	}
+
+	contenedor.innerHTML = filtrados.map((producto) => {
+		const colores = (producto.colores || "")
+			.split(",")
+			.map((c) => c.trim())
+			.filter(Boolean)
+			.map((color) => `<i class="color-dot" style="background:${color}"></i>`)
+			.join("");
+
+		const estadoClass = (producto.estado || "").toLowerCase().replace(/\s+/g, "-");
+		const disponibilidad = (producto.disponibilidad || "disponible").toLowerCase().trim();
+		const estaVendido = disponibilidad === "vendido";
+
+		return `
+			<div class="usado-item ${estaVendido ? "usado-item--vendido" : ""}">
+				<div class="usado-info">
+					<strong class="usado-nombre">${producto.nombre}</strong>
+					<span class="usado-almacenamiento">${producto.almacenamiento}</span>
+					<span class="usado-estado usado-estado--${estadoClass}">${producto.estado}</span>
+					<span class="usado-disponibilidad usado-disponibilidad--${estaVendido ? "vendido" : "disponible"}">${estaVendido ? "Vendido" : "Disponible"}</span>
+					<p class="usado-descripcion">${producto.descripcion || ""}</p>
+					${colores ? `<div class="usado-colores">${colores}</div>` : ""}
+				</div>
+				<div class="usado-precio">
+					<span class="usado-precio-valor">${producto.precio}</span>
+					${!estaVendido ? `<a class="consult-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20el%20${encodeURIComponent(producto.nombre + " " + producto.almacenamiento + " (" + producto.estado + ")")}%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Consultar <span aria-hidden="true">↗</span></a>` : '<span class="usado-vendido-badge">Vendido</span>'}
+				</div>
+			</div>
+		`;
+	}).join("");
+}
+
+function poblarFiltro() {
+	const select = document.getElementById("usados-select");
+	if (!select) return;
+
+	// Modelos únicos sin repetir
+	const modelos = [...new Set(usadosData.map((p) => p.nombre))];
+
+	// Limpiar opciones (dejar solo "Todos")
+	select.innerHTML = '<option value="todos">Todos los modelos</option>';
+	modelos.forEach((modelo) => {
+		const opt = document.createElement("option");
+		opt.value = modelo;
+		opt.textContent = modelo;
+		select.appendChild(opt);
+	});
+
+	// Escuchar cambios
+	select.addEventListener("change", () => {
+		usadosFiltro = select.value;
+		renderUsados();
+	});
+}
+
 async function cargarUsados() {
 	const contenedor = document.getElementById("usados-list");
 	if (!contenedor) return;
@@ -75,42 +145,15 @@ async function cargarUsados() {
 		const respuesta = await fetch(SHEETS_CSV_URL);
 		if (!respuesta.ok) throw new Error("No se pudo cargar la hoja");
 		const textoCSV = await respuesta.text();
-		const filas = parseCSV(textoCSV);
+		usadosData = parseCSV(textoCSV);
 
-		if (filas.length === 0) {
+		if (usadosData.length === 0) {
 			contenedor.innerHTML = '<p class="usados-empty">No hay equipos disponibles por ahora.</p>';
 			return;
 		}
 
-		contenedor.innerHTML = filas.map((producto) => {
-			const colores = (producto.colores || "")
-				.split(",")
-				.map((c) => c.trim())
-				.filter(Boolean)
-				.map((color) => `<i class="color-dot" style="background:${color}"></i>`)
-				.join("");
-
-			const estadoClass = (producto.estado || "").toLowerCase().replace(/\s+/g, "-");
-			const disponibilidad = (producto.disponibilidad || "disponible").toLowerCase().trim();
-			const estaVendido = disponibilidad === "vendido";
-
-			return `
-				<div class="usado-item ${estaVendido ? "usado-item--vendido" : ""}">
-					<div class="usado-info">
-						<strong class="usado-nombre">${producto.nombre}</strong>
-						<span class="usado-almacenamiento">${producto.almacenamiento}</span>
-						<span class="usado-estado usado-estado--${estadoClass}">${producto.estado}</span>
-						<span class="usado-disponibilidad usado-disponibilidad--${estaVendido ? "vendido" : "disponible"}">${estaVendido ? "Vendido" : "Disponible"}</span>
-						<p class="usado-descripcion">${producto.descripcion || ""}</p>
-						${colores ? `<div class="usado-colores">${colores}</div>` : ""}
-					</div>
-					<div class="usado-precio">
-						<span class="usado-precio-valor">${producto.precio}</span>
-						${!estaVendido ? `<a class="consult-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20el%20${encodeURIComponent(producto.nombre + " " + producto.almacenamiento + " (" + producto.estado + ")")}%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Consultar <span aria-hidden="true">↗</span></a>` : '<span class="usado-vendido-badge">Vendido</span>'}
-					</div>
-				</div>
-			`;
-		}).join("");
+		poblarFiltro();
+		renderUsados();
 	} catch (error) {
 		contenedor.innerHTML = '<p class="usados-error">No se pudo cargar el listado. Verificá que la hoja sea pública.</p>';
 		console.error("Error cargando Google Sheets:", error);
