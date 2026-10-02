@@ -102,7 +102,7 @@ function renderUsados() {
 					<span class="usado-almacenamiento">${producto.almacenamiento}</span>
 					<span class="usado-estado usado-estado--${estadoClass}">${producto.estado}</span>
 					<span class="usado-disponibilidad usado-disponibilidad--${estaVendido ? "vendido" : "disponible"}">${estaVendido ? "Vendido" : "Disponible"}</span>
-					<p class="usado-descripcion">${producto.descripcion || ""}</p>
+					<p class="usado-descripcion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" class="battery-icon ${(producto.descripcion || "").includes("100%") ? "battery-icon--green" : ""}"><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M21 10v4"/><rect x="4" y="9" width="5" height="6" rx="1" fill="currentColor" stroke="none"/></svg>${producto.descripcion || ""}</p>
 					${colores ? `<div class="usado-colores">${colores}</div>` : ""}
 				</div>
 				<div class="usado-precio">

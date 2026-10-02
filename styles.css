@@ -223,7 +223,10 @@ h1, h2, h3, p { margin-top: 0; }
 .usado-item--vendido .usado-nombre { text-decoration: line-through; }
 .usado-vendido-badge { display: inline-flex; min-height: 36px; align-items: center; padding: 0 12px; border-radius: 6px; background: #f8d7da; color: #721c24; font-size: 11px; font-weight: 700; }
 .usado-descripcion { margin: 6px 0 0; color: #707975; font-size: 11px; line-height: 1.5; }
-.usado-colores { display: flex; gap: 4px; margin-top: 8px; }
+.battery-icon { display: inline-block; width: 28px; height: 28px; vertical-align: middle; margin-right: 5px; color: var(--blue); }
+.battery-icon--green { color: #2ecc71; }
+.usado-colores { display: flex; gap: 6px; margin-top: 8px; }
+.usado-colores .color-dot { width: 24px; height: 24px; }
 .usado-precio { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex: 0 0 auto; }
 .usado-precio-valor { font: 800 18px var(--font-display); color: var(--blue); }
 .usados-loading, .usados-empty, .usados-error { margin: 0; padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
