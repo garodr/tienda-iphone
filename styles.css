@@ -26,7 +26,7 @@ img { display: block; max-width: 100%; }
 .site-header { position: sticky; top: 0; z-index: 20; background: rgb(247 248 245 / 92%); backdrop-filter: blur(18px); border-bottom: 1px solid rgb(24 32 30 / 8%); }
 .nav-wrap { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 .brand { display: inline-flex; align-items: center; gap: 9px; font: 800 25px/1 var(--font-display); letter-spacing: 0; }
-.brand-mark { display: block; width: auto; height: 42px; object-fit: contain; }
+.brand-mark { display: block; width: auto; height: 38px; object-fit: contain; }
 .brand em { color: var(--blue); font-style: normal; }
 .nav-links { display: flex; align-items: center; gap: 33px; color: #3f4945; font-size: 13px; font-weight: 600; }
 .nav-links a:hover, .footer-links a:hover { color: var(--blue); }
@@ -121,7 +121,7 @@ h1, h2, h3, p { margin-top: 0; }
 .site-footer { padding: 29px 0; border-top: 1px solid var(--line); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .footer-inner .brand { font-size: 21px; }
-.footer-inner .brand-mark { width: auto; height: 36px; }
+.footer-inner .brand-mark { width: auto; height: 32px; }
 .footer-note { margin: 0; color: var(--muted); font-size: 10px; }
 .footer-links { display: flex; gap: 18px; color: #59635e; font-size: 11px; font-weight: 600; }
 .whatsapp-float { position: fixed; right: 23px; bottom: 23px; z-index: 10; display: grid; width: 52px; height: 52px; place-items: center; border: 0; border-radius: 50%; background: var(--lime); color: var(--ink); box-shadow: 0 6px 24px rgb(24 32 30 / 20%); transition: transform .2s; }
@@ -144,7 +144,7 @@ h1, h2, h3, p { margin-top: 0; }
 	.announcement { font-size: 10px; }
 	.nav-wrap { min-height: 66px; gap: 12px; }
 	.brand { font-size: 22px; }
-	.brand-mark { width: auto; height: 36px; }
+	.brand-mark { width: auto; height: 32px; }
 	.nav-actions { gap: 8px; }
 	.nav-actions > .button { min-height: 39px; padding: 0 11px; font-size: 11px; }
 	.menu-toggle { display: grid; place-items: center; }
