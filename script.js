@@ -84,11 +84,30 @@ function renderUsados() {
 	}
 
 	contenedor.innerHTML = filtrados.map((producto) => {
+		// Mapeo de nombres de color en español a hex
+		const COLORES = {
+			"naranja": "#ff8c00", "rojo": "#e74c3c", "azul": "#3498db",
+			"verde": "#2ecc71", "amarillo": "#f1c40f", "negro": "#252525",
+			"blanco": "#f1f0eb", "gris": "#95a5a6", "rosa": "#e5c9c6",
+			"morado": "#9b59b6", "violeta": "#8e44ad", "celeste": "#a8d8ea",
+			"turquesa": "#1abc9c", "dorado": "#e6c619", "plateado": "#c9c9c4",
+			"beige": "#f5f5dc", "marron": "#8b5a2b", "borgona": "#792b42",
+			"burdeos": "#792b42", "azul cielo": "#b5cddd", "azul noche": "#2a3040",
+			"lavanda": "#c6bbd7", "salvia": "#a3ad9a", "coral": "#ff795b",
+			"menta": "#98ff98", "arena": "#e6d9c0"
+		};
+
+		const resolverColor = (valor) => {
+			const v = valor.trim().toLowerCase();
+			if (COLORES[v]) return COLORES[v];
+			return valor.trim();
+		};
+
 		const colores = (producto.colores || "")
 			.split(",")
 			.map((c) => c.trim())
 			.filter(Boolean)
-			.map((color) => `<i class="color-dot" style="background:${color}"></i>`)
+			.map((color) => `<i class="color-dot" style="background:${resolverColor(color)}" title="${color}"></i>`)
 			.join("");
 
 		const estadoClass = (producto.estado || "").toLowerCase().replace(/\s+/g, "-");
@@ -137,6 +156,19 @@ function poblarFiltro() {
 	});
 }
 
+// ── Carrusel de precios (primeros 10 de la hoja) ──
+function renderTicker() {
+	const track = document.querySelector(".price-ticker-track");
+	if (!track || usadosData.length === 0) return;
+
+	const items = usadosData.slice(0, 10);
+	// Duplicamos para que el loop sea fluido
+	const html = [...items, ...items].map((p) =>
+		`<span class="price-ticker-item">💰 <strong>${p.nombre} ${p.almacenamiento}</strong> ${p.precio}</span>`
+	).join("");
+	track.innerHTML = html;
+}
+
 async function cargarUsados() {
 	const contenedor = document.getElementById("usados-list");
 	if (!contenedor) return;
@@ -154,6 +186,7 @@ async function cargarUsados() {
 
 		poblarFiltro();
 		renderUsados();
+		renderTicker();
 	} catch (error) {
 		contenedor.innerHTML = '<p class="usados-error">No se pudo cargar el listado. Verificá que la hoja sea pública.</p>';
 		console.error("Error cargando Google Sheets:", error);

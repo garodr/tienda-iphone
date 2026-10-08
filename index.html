@@ -35,13 +35,16 @@
 		<section class="hero" id="inicio" aria-labelledby="hero-title">
 			<div class="shell">
 				<div class="hero-panel">
+					<div class="price-ticker" aria-label="Precios destacados">
+						<div class="price-ticker-track"></div>
+					</div>
 					<div class="hero-copy">
 						<span class="eyebrow">La familia iPhone, en Púlsar</span>
 						<h1 id="hero-title">Tu próximo iPhone <span>te espera.</span></h1>
 						<p>Descubre los nuevos modelos, encuentra el que va contigo y consúltanos para conocer todos los detalles.</p>
 						<div class="hero-actions">
 							<a class="button" href="#catalogo">Explorar modelos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-							<a class="text-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Hablar con Púlsar <span aria-hidden="true">↗</span></a>
+							<a class="text-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20P%C3%BAlsar." target="_blank" rel="noopener noreferrer">Hablar con Púlsar <span aria-hidden="true">↗</span></a>
 						</div>
 						<span class="hero-note">Novedades Apple · Atención personalizada · Consulta directa</span>
 					</div>
@@ -163,7 +166,7 @@
 					</div>
 				</article>
 
-				<article class="product-card product-card--usados" data-category="usados">
+				<article class="product-card product-card--usados" data-category="usados" id="usados">
 					<div class="product-art product-art--usados">
 						<span class="product-tag">Usados seleccionados</span>
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:52px;height:52px;color:var(--blue)"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.3h4"/><path d="M9 8.5l2 2 4-4"/></svg>
@@ -262,10 +265,20 @@
 			<p class="footer-note">© 2026 Púlsar. iPhone es una marca de Apple Inc.</p>
 			<div class="footer-links"><a href="#catalogo">Modelos</a><a href="#contacto">Contacto</a></div>
 		</div>
+		<div class="shell footer-credit">
+			<span class="footer-credit-text">Diseñado, desarrollado e implementado por:</span>
+			<a class="footer-credit-link" href="https://www.betelgeuse.com.ar" target="_blank" rel="noopener noreferrer">
+				<img src="assets/betelgeuse.png" alt="Betelgeuse Software" class="footer-credit-logo">
+			</a>
+		</div>
 	</footer>
 
-	<a class="whatsapp-float" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20Púlsar." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+	<a class="whatsapp-float" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20P%C3%BAlsar." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4.2a8 8 0 1 1 15-4.3Z"/><path d="M9 9.3c.7 2.1 2.2 3.6 4.5 4.5"/></svg>
+	</a>
+	<a class="prices-float" href="#usados" aria-label="Ver precios de usados seleccionados">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+		<span>Ver precios</span>
 	</a>
 
 	<script src="script.js"></script>
