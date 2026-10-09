@@ -141,6 +141,40 @@ h1, h2, h3, p { margin-top: 0; }
 .prices-float:hover { transform: translateY(-4px); background: var(--blue-deep); }
 .prices-float svg { width: 16px; height: 16px; }
 
+/* ── Usados seleccionados ── */
+.usados-section { padding: 46px 0 30px; }
+.usados-section .usados-filter { max-width: 500px; margin-bottom: 20px; }
+.usados-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.usado-item { display: flex; flex-direction: column; gap: 10px; padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: white; transition: border-color .2s, box-shadow .2s; }
+.usado-item:hover { border-color: var(--blue); box-shadow: 0 6px 20px rgb(24 32 30 / 7%); }
+.usado-item--vendido { opacity: .6; }
+.usado-item--vendido .usado-nombre { text-decoration: line-through; }
+.usado-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 4px; }
+.usado-info { flex: 1; }
+.usado-nombre { display: block; font: 700 16px var(--font-display); }
+.usado-almacenamiento { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.usado-estado { display: inline-block; margin-top: 6px; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.usado-estado--excelente { background: #d4edda; color: #155724; }
+.usado-estado--muy-bueno { background: #d1ecf1; color: #0c5460; }
+.usado-estado--bueno { background: #fff3cd; color: #856404; }
+.usado-disponibilidad { display: inline-block; margin-top: 4px; margin-left: 6px; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.usado-disponibilidad--disponible { background: #d4edda; color: #155724; }
+.usado-disponibilidad--vendido { background: #f8d7da; color: #721c24; }
+.usado-descripcion { margin: 6px 0 0; color: #707975; font-size: 12px; line-height: 1.5; }
+.battery-icon { display: inline-block; width: 28px; height: 28px; vertical-align: middle; margin-right: 5px; color: var(--blue); }
+.battery-icon--green { color: #2ecc71; }
+.usado-colores { display: flex; gap: 6px; margin-top: 8px; }
+.usado-colores .color-dot { width: 24px; height: 24px; }
+.usado-precio { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
+.usado-precio-valor { font: 800 20px var(--font-display); color: var(--blue); }
+.usado-vendido-badge { display: inline-flex; min-height: 36px; align-items: center; padding: 0 12px; border-radius: 6px; background: #f8d7da; color: #721c24; font-size: 11px; font-weight: 700; }
+.usados-filter { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fafbf8; }
+.usados-filter-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+.usados-select { flex: 1; min-width: 0; padding: 9px 12px; border: 1px solid var(--line); border-radius: 7px; background: white; font-size: 13px; font-weight: 600; color: var(--ink); outline: none; cursor: pointer; transition: border-color .2s; }
+.usados-select:hover, .usados-select:focus { border-color: var(--blue); }
+.usados-loading, .usados-empty, .usados-error { margin: 0; padding: 30px; text-align: center; color: var(--muted); font-size: 13px; grid-column: 1 / -1; }
+.usados-error { color: var(--coral); }
+
 @media (max-width: 900px) {
 	.shell { width: min(100% - 42px, 740px); }
 	.nav-links { gap: 19px; }
@@ -148,6 +182,7 @@ h1, h2, h3, p { margin-top: 0; }
 	.hero-copy { padding: 45px 6px 45px 38px; }
 	.hero h1 { font-size: 54px; }
 	.product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.usados-list { grid-template-columns: repeat(2, 1fr); }
 	.section-head { align-items: flex-start; flex-direction: column; }
 	.feature-inner { align-items: flex-start; flex-direction: column; }
 }
@@ -187,7 +222,7 @@ h1, h2, h3, p { margin-top: 0; }
 	.filter-button { min-height: 34px; padding: 0 12px; font-size: 10px; }
 	.product-grid { grid-template-columns: 1fr; gap: 14px; }
 	.product-card { display: grid; grid-template-columns: 41% 59%; }
-	.product-card--usados { grid-template-columns: 1fr; }
+	.usados-list { grid-template-columns: 1fr; }
 	.product-art { height: 100%; min-height: 230px; }
 	.product-art img { padding: 5px; }
 	.product-tag { top: 10px; left: 9px; padding: 6px 7px; font-size: 8px; }
@@ -235,39 +270,6 @@ h1, h2, h3, p { margin-top: 0; }
 	.review-stars svg { width: 16px; height: 16px; }
 	.review-text { font-size: 13px; }
 }
-
-/* ── Usados seleccionados ── */
-.product-card--usados { grid-column: 1 / -1; }
-.product-art--usados { height: 180px; }
-.usados-list { display: flex; flex-direction: column; gap: 10px; }
-.usado-item { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fafbf8; transition: border-color .2s, box-shadow .2s; }
-.usado-item:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgb(24 32 30 / 6%); }
-.usado-info { flex: 1; min-width: 0; }
-.usado-nombre { display: block; font: 700 14px var(--font-display); }
-.usado-almacenamiento { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
-.usado-estado { display: inline-block; margin-top: 6px; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.usado-estado--excelente { background: #d4edda; color: #155724; }
-.usado-estado--muy-bueno { background: #d1ecf1; color: #0c5460; }
-.usado-estado--bueno { background: #fff3cd; color: #856404; }
-.usados-filter { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fafbf8; }
-.usados-filter-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
-.usados-select { flex: 1; min-width: 0; padding: 9px 12px; border: 1px solid var(--line); border-radius: 7px; background: white; font-size: 13px; font-weight: 600; color: var(--ink); outline: none; cursor: pointer; transition: border-color .2s; }
-.usados-select:hover, .usados-select:focus { border-color: var(--blue); }
-.usado-disponibilidad { display: inline-block; margin-top: 4px; margin-left: 6px; padding: 3px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-.usado-disponibilidad--disponible { background: #d4edda; color: #155724; }
-.usado-disponibilidad--vendido { background: #f8d7da; color: #721c24; }
-.usado-item--vendido { opacity: .6; }
-.usado-item--vendido .usado-nombre { text-decoration: line-through; }
-.usado-vendido-badge { display: inline-flex; min-height: 36px; align-items: center; padding: 0 12px; border-radius: 6px; background: #f8d7da; color: #721c24; font-size: 11px; font-weight: 700; }
-.usado-descripcion { margin: 6px 0 0; color: #707975; font-size: 11px; line-height: 1.5; }
-.battery-icon { display: inline-block; width: 28px; height: 28px; vertical-align: middle; margin-right: 5px; color: var(--blue); }
-.battery-icon--green { color: #2ecc71; }
-.usado-colores { display: flex; gap: 6px; margin-top: 8px; }
-.usado-colores .color-dot { width: 24px; height: 24px; }
-.usado-precio { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex: 0 0 auto; }
-.usado-precio-valor { font: 800 18px var(--font-display); color: var(--blue); }
-.usados-loading, .usados-empty, .usados-error { margin: 0; padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
-.usados-error { color: var(--coral); }
 
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

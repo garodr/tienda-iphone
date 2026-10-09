@@ -33,6 +33,21 @@ navigation.querySelectorAll("a").forEach((link) => {
 // ── Configuración ──
 const SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6hTGenHEZmisbCwHhr1r1kDPmazvKMWHmbs9rUDfd_Y-uA_f8zLvn8ahe1IVraqWXhqBcGGsTf9Sb/pub?gid=0&single=true&output=csv";
 
+// Mapeo de fotos por modelo (editar según corresponda)
+// FOTOS_EXACTOS: nombre exacto de la hoja → foto
+// FOTOS: búsqueda parcial (si el modelo contiene la clave)
+const FOTOS_EXACTOS = {};
+const FOTOS = {
+	"17 pro": "img/WhatsApp Image 2026-10-09 at 14.41.30.jpeg",
+	"17": "img/WhatsApp Image 2026-10-09 at 14.41.30 (1).jpeg",
+	"16 pro": "img/WhatsApp Image 2026-10-09 at 14.41.31.jpeg",
+	"16": "img/WhatsApp Image 2026-10-09 at 14.41.30 (1).jpeg",
+	"15 pro": "img/WhatsApp Image 2026-10-09 at 14.41.31.jpeg",
+	"14 pro": "img/WhatsApp Image 2026-10-09 at 14.41.30.jpeg",
+	"13 pro": "img/WhatsApp Image 2026-10-09 at 14.41.30 (1).jpeg",
+	"13": "img/WhatsApp Image 2026-10-09 at 14.41.31.jpeg"
+};
+
 // ── Parser de CSV ──
 function parseCSV(texto) {
 	const lineas = texto.trim().split("\n");
@@ -110,12 +125,22 @@ function renderUsados() {
 			.map((color) => `<i class="color-dot" style="background:${resolverColor(color)}" title="${color}"></i>`)
 			.join("");
 
+		const foto = (() => {
+			const nombre = (producto.nombre || "").toLowerCase();
+			if (FOTOS_EXACTOS[nombre]) return FOTOS_EXACTOS[nombre];
+			// Búsqueda parcial: si el modelo contiene alguna clave del mapeo
+			for (const [clave, path] of Object.entries(FOTOS)) {
+				if (nombre.includes(clave.toLowerCase())) return path;
+			}
+			return "";
+		})();
 		const estadoClass = (producto.estado || "").toLowerCase().replace(/\s+/g, "-");
 		const disponibilidad = (producto.disponibilidad || "disponible").toLowerCase().trim();
 		const estaVendido = disponibilidad === "vendido";
 
 		return `
 			<div class="usado-item ${estaVendido ? "usado-item--vendido" : ""}">
+				${foto ? `<img class="usado-img" src="${foto}" alt="${producto.nombre} ${producto.almacenamiento}" loading="lazy">` : ""}
 				<div class="usado-info">
 					<strong class="usado-nombre">${producto.nombre}</strong>
 					<span class="usado-almacenamiento">${producto.almacenamiento}</span>

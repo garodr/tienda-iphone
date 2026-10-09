@@ -1,19 +1,19 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#f7f8f5">
-	<meta name="description" content="Descubre los últimos modelos de iPhone en Púlsar. Elige tu favorito y consúltanos por WhatsApp.">
-	<title>Púlsar — Tu próximo iPhone empieza aquí</title>
+	<meta name="description" content="Descubrí los últimos modelos de iPhone en Púlsar. Elegí tu favorito y consultanos por WhatsApp.">
+	<title>Púlsar — Tu próximo iPhone empieza acá</title>
 	<link rel="icon" type="image/png" href="assets/logo.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
-	<div class="announcement">Una nueva forma de encontrar tu próximo iPhone. <span>Descubre Púlsar.</span></div>
+	<div class="announcement">Una nueva forma de encontrar tu próximo iPhone. <span>Descubrí Púlsar.</span></div>
 	<header class="site-header">
 		<div class="shell nav-wrap">
 			<a class="brand" href="#inicio" aria-label="Púlsar, inicio"><img class="brand-mark" src="assets/logo.png" alt="Púlsar" width="31" height="31"><span>Púlsar</span></a>
@@ -23,7 +23,7 @@
 				<a href="#contacto">Contacto</a>
 			</nav>
 			<div class="nav-actions">
-				<a class="button" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Escríbenos <span aria-hidden="true">↗</span></a>
+				<a class="button" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Escribinos <span aria-hidden="true">↗</span></a>
 				<button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
 					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
 				</button>
@@ -41,7 +41,7 @@
 					<div class="hero-copy">
 						<span class="eyebrow">La familia iPhone, en Púlsar</span>
 						<h1 id="hero-title">Tu próximo iPhone <span>te espera.</span></h1>
-						<p>Descubre los nuevos modelos, encuentra el que va contigo y consúltanos para conocer todos los detalles.</p>
+						<p>Descubrí los modelos, encontrá el que va con vos y consultanos para conocer todos los detalles.</p>
 						<div class="hero-actions">
 							<a class="button" href="#usados">Explorar modelos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 							<a class="text-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20P%C3%BAlsar." target="_blank" rel="noopener noreferrer">Hablar con Púlsar <span aria-hidden="true">↗</span></a>
@@ -49,8 +49,8 @@
 						<span class="hero-note">Novedades Apple · Atención personalizada · Consulta directa</span>
 					</div>
 					<div class="hero-media">
-						<img src="https://www.apple.com/v/iphone-duo/a/images/overview/camera/hero_right__gk9rwhz4kdqq_large.jpg" alt="iPhone Duo blanco estelar, abierto, con pantalla interior y cámara dual" fetchpriority="high">
-						<div class="hero-caption"><span>●</span> iPhone Duo · Nuevo</div>
+						<img src="https://www.apple.com/v/iphone-17-pro/a/images/overview/welcome/hero_endframe__fv5x3zn9mcyu_large.jpg" alt="iPhone 17 Pro en titanio, vista delantera y trasera" fetchpriority="high">
+						<div class="hero-caption"><span>●</span> iPhone 17 Pro · Lo último</div>
 					</div>
 				</div>
 				<div class="trust-row" aria-label="Ventajas de comprar en Púlsar">
@@ -70,38 +70,41 @@
 			</div>
 		</section>
 
+		<section class="usados-section shell" id="usados" aria-labelledby="usados-title">
+			<div class="section-head">
+				<div>
+					<span class="eyebrow">Nuestro stock real</span>
+					<h2 class="section-title" id="usados-title">Usados <span>seleccionados.</span></h2>
+					<p class="section-subtitle">iPhone revisados y garantizados por nuestro equipo. ¡Consultá disponibilidad!</p>
+				</div>
+			</div>
+			<div class="usados-filter">
+				<label for="usados-select" class="usados-filter-label">Filtrar por modelo:</label>
+				<select id="usados-select" class="usados-select">
+					<option value="todos">Todos los modelos</option>
+				</select>
+			</div>
+			<div class="usados-list" id="usados-list">
+				<p class="usados-loading">Cargando listado…</p>
+			</div>
+		</section>
+
 		<section class="catalog shell" id="catalogo" aria-labelledby="catalog-title">
 			<div class="section-head">
 				<div>
-					<span class="eyebrow">Elige tu favorito</span>
-					<h2 class="section-title" id="catalog-title">Conoce la familia.<br><span>Encuentra el tuyo.</span></h2>
+					<span class="eyebrow">Elegí tu favorito</span>
+					<h2 class="section-title" id="catalog-title">Conocé la familia.<br><span>Encontrá el tuyo.</span></h2>
 					<p class="section-subtitle">Los modelos más nuevos de iPhone, reunidos en un solo lugar.</p>
 				</div>
 				<div class="filters" role="group" aria-label="Filtrar modelos">
 					<button class="filter-button" type="button" data-filter="todos" aria-pressed="true">Todos</button>
 					<button class="filter-button" type="button" data-filter="pro" aria-pressed="false">Pro</button>
-					<button class="filter-button" type="button" data-filter="diseno" aria-pressed="false">Diseño</button>
 					<button class="filter-button" type="button" data-filter="esencial" aria-pressed="false">Esencial</button>
+					<button class="filter-button" type="button" data-filter="usados" aria-pressed="false">Usados</button>
 				</div>
 			</div>
 
 			<div class="product-grid">
-				<article class="product-card" data-category="diseno">
-					<div class="product-art">
-						<span class="product-tag">Nuevo · Plegable</span>
-						<img src="https://www.apple.com/v/iphone-duo/a/images/overview/camera/hero_right__gk9rwhz4kdqq_large.jpg" alt="iPhone Duo blanco estelar, ligeramente abierto, con cámara dual Fusion" loading="lazy">
-					</div>
-					<div class="product-info">
-						<div class="product-meta"><span>LA MAYOR PANTALLA EN UN IPHONE</span><span>GAMA DUO</span></div>
-						<h3>iPhone Duo</h3>
-						<p>Plegable, adaptable y resistente. Una nueva forma de disfrutar cada día.</p>
-						<div class="product-bottom">
-							<div><span class="color-label">Disponible en</span><div class="color-dots" aria-label="Blanco estelar y cielo nocturno"><i class="color-dot" style="background:#f6f3ea"></i><i class="color-dot" style="background:#2a3040"></i><span class="color-more">+ colores</span></div></div>
-							<a class="consult-link" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20el%20precio%20y%20disponibilidad%20del%20iPhone%20Duo%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Consultar precio <span aria-hidden="true">↗</span></a>
-						</div>
-					</div>
-				</article>
-
 				<article class="product-card" data-category="pro">
 					<div class="product-art">
 						<span class="product-tag tag-blue">Lo último</span>
@@ -165,27 +168,6 @@
 						</div>
 					</div>
 				</article>
-
-				<article class="product-card product-card--usados" data-category="usados" id="usados">
-					<div class="product-art product-art--usados">
-						<span class="product-tag">Usados seleccionados</span>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:52px;height:52px;color:var(--blue)"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.3h4"/><path d="M9 8.5l2 2 4-4"/></svg>
-					</div>
-					<div class="product-info">
-						<div class="product-meta"><span>REVISADOS Y GARANTIZADOS</span><span>GAMA USADOS</span></div>
-						<h3>Usados seleccionados</h3>
-						<p>iPhone revisados y garantizados por nuestro equipo.</p>
-						<div class="usados-filter">
-							<label for="usados-select" class="usados-filter-label">Filtrar por modelo:</label>
-							<select id="usados-select" class="usados-select">
-								<option value="todos">Todos los modelos</option>
-							</select>
-						</div>
-						<div class="usados-list" id="usados-list">
-							<p class="usados-loading">Cargando listado…</p>
-						</div>
-					</div>
-				</article>
 			</div>
 		</section>
 
@@ -194,7 +176,7 @@
 				<div class="feature-copy">
 					<span class="eyebrow">El siguiente paso es sencillo</span>
 					<h2 id="feature-title">¿Ya tienes un favorito?</h2>
-					<p>Cuéntanos qué modelo te interesa. Te ayudamos a consultar precio, colores y disponibilidad, sin compromiso.</p>
+					<p>Contanos qué modelo te interesa. Te ayudamos a consultar precio, colores y disponibilidad, sin compromiso.</p>
 				</div>
 				<a class="button feature-action" href="https://wa.me/5493518149127?text=Hola%2C%20quiero%20consultar%20por%20un%20iPhone%20en%20Púlsar." target="_blank" rel="noopener noreferrer">Consultar por WhatsApp <span aria-hidden="true">↗</span></a>
 			</div>
@@ -206,8 +188,8 @@
 				<h2 class="section-title" id="about-title">Tecnología Apple.<br><span>Atención Púlsar.</span></h2>
 			</div>
 			<div class="about-copy">
-				<div class="about-point"><span class="about-number">01 / A TU RITMO</span><strong>El modelo que encaja contigo</strong><p>Compara los modelos de la familia iPhone y elige según tu estilo y lo que necesitas.</p></div>
-				<div class="about-point"><span class="about-number">02 / SIN COMPLICACIONES</span><strong>Respuestas directas</strong><p>Consulta el precio y la disponibilidad de forma sencilla con nuestro equipo.</p></div>
+				<div class="about-point"><span class="about-number">01 / A TU RITMO</span><strong>El modelo que encaja con vos</strong><p>Compará los modelos de la familia iPhone y elegí según tu estilo y lo que necesitás.</p></div>
+				<div class="about-point"><span class="about-number">02 / SIN COMPLICACIONES</span><strong>Respuestas directas</strong><p>Consultá el precio y la disponibilidad de forma sencilla con nuestro equipo.</p></div>
 			</div>
 		</section>
 
@@ -255,6 +237,42 @@
 						</div>
 					</footer>
 				</blockquote>
+
+				<blockquote class="review-card">
+					<div class="review-stars" aria-label="5 de 5 estrellas">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+					</div>
+					<p class="review-text">"Vendí mi celular viejo y me compré un 16 Pro acá. Me lo entregaron impecable, con factura y garantía. Muy buena experiencia."</p>
+					<footer class="review-author">
+						<span class="review-avatar">CR</span>
+						<div>
+							<strong>Carolina Rodríguez</strong>
+							<small>Compra verificada</small>
+						</div>
+					</footer>
+				</blockquote>
+
+				<blockquote class="review-card">
+					<div class="review-stars" aria-label="5 de 5 estrellas">
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+					</div>
+					<p class="review-text">"Muy conforme con la compra. El iPhone 14 que me vendieron estaba como nuevo y el precio imbatible. Los recomiendo a todos."</p>
+					<footer class="review-author">
+						<span class="review-avatar">MP</span>
+						<div>
+							<strong>Martín Pérez</strong>
+							<small>Compra verificada</small>
+						</div>
+					</footer>
+				</blockquote>
 			</div>
 		</section>
 	</main>
@@ -281,6 +299,7 @@
 		<span>Ver precios</span>
 	</a>
 
-	<script src="script.js"></script>
+	<script src="script.js?v=2"></script>
 </body>
 </html>
+
